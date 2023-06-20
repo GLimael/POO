@@ -13,22 +13,11 @@ public class Produtos {
 	private String quantidadeEstoque;
 	private String imagens;
 	
-	public Produtos(float valor, String nome, String categoria, String avaliacao, String descricao, String modelo,
-			String marca, String cor, String quantidadeEstoque, String imagens) {
-		this.valor = valor;
-		this.nome = nome;
-		this.categoria = categoria;
-		this.avaliacao = avaliacao;
-		this.descricao = descricao;
-		this.modelo = modelo;
-		this.marca = marca;
-		this.cor = cor;
-		this.quantidadeEstoque = quantidadeEstoque;
-		this.imagens = imagens;
-	}
-	
 	public Produtos() {
 		
+	}
+	public Produtos(String nome) {
+		this.nome = nome;
 	}
 	
 	public double getValor() {

@@ -18,7 +18,6 @@ public class Cliente {
 	private String dataDeNascimento;
 	private String login;
 	private String senha;
-	private String endereco;
 	private String cpf;
 	private String email;
 	private float saldo;
@@ -26,12 +25,20 @@ public class Cliente {
 
 	/**
 	 * Criação do construtor, usando apenas os parâmetros de login e senha, para que
-	 * o cliente já possua um login e senha
+	 * o cliente já possua um cadastro
 	 */
 
 	public Cliente(String login, String senha) {
-		this.login = login;
-		this.senha = senha;
+		if (login.matches("[A-Za-z0-9]")) {
+			this.login = login;
+		}
+		if (senha.length() > 5) {
+			this.senha = senha;
+		}
+	}
+	
+	public Cliente() {
+		
 	}
 
 	/**
@@ -56,7 +63,7 @@ public class Cliente {
 	}
 
 	public void setNome(String nome) {
-		if (nome.length() > 2 && nome.matches("[A-Za-z]*")) {
+		if (nome.matches("[A-Za-z]*")) {
 			this.nome = nome;
 		}
 	}
@@ -66,8 +73,18 @@ public class Cliente {
 	}
 	
 	public void setDataDeNascimento(String dataDeNascimento) {
-		if (dataDeNascimento.matches("\\d{2}\\/\\d{2}\\/\\d{2}")) {
+		if (dataDeNascimento.matches("\\d{2}\\/\\d{2}\\/\\d{4}")) {
 			this.dataDeNascimento = dataDeNascimento;
+		}
+	}
+	
+	public String getLogin() {
+		return login;
+	}
+
+	public void setLogin(String login) {
+		if (login.matches("[A-Za-z0-9]*")) {
+			this.login = login;
 		}
 	}
 
@@ -76,15 +93,9 @@ public class Cliente {
 	}
 
 	public void setSenha(String senha) {
-		this.senha = senha;
-	}
-
-	public String getEndereco() {
-		return endereco;
-	}
-
-	public void setEndereco(String endereco) {
-		this.endereco = endereco;
+		if (senha.length() > 5) {
+			this.senha = senha;
+		}
 	}
 
 	public String getCpf() {
@@ -101,7 +112,9 @@ public class Cliente {
 	}
 
 	public void setEmail(String email) {
-		this.email = email;
+		if(email.matches("[A-Za-z0-9]*@[A-Za-z]*.[A-Za-z]*")) {
+			this.email = email;
+		}
 	}
 
 	public float getSaldo() {
@@ -109,7 +122,9 @@ public class Cliente {
 	}
 
 	public void setSaldo(float saldo) {
-		this.saldo = saldo;
+		if (saldo > 0) {
+			this.saldo = saldo;
+		}
 	}
 
 	public String getFormaDePagamento() {
