@@ -10,6 +10,10 @@ public class Categoria {
 		this.tipo = tipo;
 	}
 	
+	public Categoria() {
+		
+	}
+	
 	public String getNome() {
 		return nome;
 	}
