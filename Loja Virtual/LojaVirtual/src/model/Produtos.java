@@ -2,9 +2,9 @@ package model;
 
 public class Produtos {
 	
-	private double valor;
+	private float valor;
 	private String nome;
-	private Object categoria;
+	private String categoria;
 	private String avaliacao;
 	private String descricao;
 	private String modelo;
@@ -13,18 +13,25 @@ public class Produtos {
 	private String quantidadeEstoque;
 	private String imagens;
 	
-	public Produtos() {
-		
-	}
-	public Produtos(String nome) {
+	public Produtos(float valor, String nome, String categoria, String avaliacao, String descricao, String modelo,
+			String marca, String cor, String quantidadeEstoque, String imagens) {
+		this.valor = valor;
 		this.nome = nome;
+		this.categoria = categoria;
+		this.avaliacao = avaliacao;
+		this.descricao = descricao;
+		this.modelo = modelo;
+		this.marca = marca;
+		this.cor = cor;
+		this.quantidadeEstoque = quantidadeEstoque;
+		this.imagens = imagens;
 	}
 	
-	public double getValor() {
+	public float getValor() {
 		return valor;
 	}
-	public void setValor(double d) {
-		this.valor = d;
+	public void setValor(float valor) {
+		this.valor = valor;
 	}
 	public String getNome() {
 		return nome;
@@ -32,10 +39,10 @@ public class Produtos {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	public Object getCategoria() {
+	public String getCategoria() {
 		return categoria;
 	}
-	public void setCategoria(Object categoria) {
+	public void setCategoria(String categoria) {
 		this.categoria = categoria;
 	}
 	public String getAvaliacao() {
