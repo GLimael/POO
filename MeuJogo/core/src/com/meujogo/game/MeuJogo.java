@@ -17,6 +17,7 @@ public class MeuJogo extends ApplicationAdapter {
 	private SpriteBatch batch;
 	private Texture img, tObstacle;
 	private Array<Rectangle> obstacles;
+	private long frequenciaObstaculo;
 	
 	@Override
 	public void create () {
@@ -24,6 +25,7 @@ public class MeuJogo extends ApplicationAdapter {
 		img = new Texture("fundo.png");
 		tObstacle = new Texture("bloco-obstaculo.png");
 		obstacles = new Array<Rectangle>();
+		frequenciaObstaculo = 0;
 	}
 
 	@Override
@@ -51,14 +53,18 @@ public class MeuJogo extends ApplicationAdapter {
 	private void spawnObstacle () {
 		Rectangle obstacle = new Rectangle(Gdx.graphics.getWidth(), MathUtils.random(0, Gdx.graphics.getHeight() - tObstacle.getHeight()), tObstacle.getWidth(), tObstacle.getHeight());
 		obstacles.add(obstacle);
+		frequenciaObstaculo = TimeUtils.nanoTime();
 	}
 	
 	private void moveObstacles() {
-		this.spawnObstacle();
+		if(TimeUtils.nanoTime() - frequenciaObstaculo > 777777777) {
+			this.spawnObstacle();
+		}
+		
 		
 		for(Iterator<Rectangle> iter = obstacles.iterator(); iter.hasNext();) {
 			Rectangle obstacle = iter.next();
-			obstacle.x -= 2;
+			obstacle.x -= 10;
 			if (obstacle.x < 0-obstacle.width) {
 				iter.remove();
 			}
