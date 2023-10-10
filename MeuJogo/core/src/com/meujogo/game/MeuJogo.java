@@ -6,6 +6,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 
+import java.util.concurrent.ScheduledThreadPoolExecutor;
+
 //imports para obstaculo
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
@@ -57,7 +59,7 @@ public class MeuJogo extends ApplicationAdapter {
 	}
 	
 	private void moveObstacles() {
-		if(TimeUtils.nanoTime() - frequenciaObstaculo > 777777777) {
+		if(TimeUtils.nanoTime() - frequenciaObstaculo > 7) {
 			this.spawnObstacle();
 		}
 		
