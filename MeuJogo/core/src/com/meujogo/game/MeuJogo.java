@@ -20,6 +20,7 @@ public class MeuJogo extends ApplicationAdapter {
 	private Texture img, tObstacle;
 	private Array<Rectangle> obstacles;
 	private long frequenciaObstaculo;
+	private Temporizador temporizador;
 	
 	@Override
 	public void create () {
@@ -28,6 +29,7 @@ public class MeuJogo extends ApplicationAdapter {
 		tObstacle = new Texture("bloco-obstaculo.png");
 		obstacles = new Array<Rectangle>();
 		frequenciaObstaculo = 0;
+		temporizador = new Temporizador();
 	}
 
 	@Override

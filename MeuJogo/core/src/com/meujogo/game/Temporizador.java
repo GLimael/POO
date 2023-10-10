@@ -1,29 +1,18 @@
 package com.meujogo.game;
 
-
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class Temporizador {
+    private static int segundosPassados = 0;
+
     public static void main(String[] args) {
-        final Timer timer = new Timer();
-
-        int delay = 1000; // atraso de 1 segundo
-        int period = 1000; // intervalo de 1 segundo
-
+        Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
-            int secondsPassed = 0;
-
-            @Override
             public void run() {
-                System.out.println("Tempo passado: " + secondsPassed + " segundos");
-                secondsPassed++;
-
-                // Se desejar parar o timer após um certo tempo, pode adicionar uma condição
-                if (secondsPassed > 10) {
-                    timer.cancel();
-                }
+                segundosPassados++;
+                //System.out.println("Tempo passado: " + segundosPassados + " segundos");
             }
-        }, delay, period);
+        }, 1000, 1000);
     }
 }
