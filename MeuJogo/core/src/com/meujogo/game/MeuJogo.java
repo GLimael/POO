@@ -3,10 +3,11 @@ package com.meujogo.game;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.utils.ScreenUtils;
-
-import java.util.concurrent.ScheduledThreadPoolExecutor;
+import com.badlogic.gdx.graphics.Color;
 
 //imports para obstaculo
 import com.badlogic.gdx.math.MathUtils;
@@ -20,7 +21,10 @@ public class MeuJogo extends ApplicationAdapter {
 	private Texture img, tObstacle;
 	private Array<Rectangle> obstacles;
 	private long frequenciaObstaculo;
-	private Temporizador temporizador;
+	private Temporizador temp;
+	private FreeTypeFontGenerator generator;
+	private FreeTypeFontGenerator.FreeTypeFontParameter param;
+	private BitmapFont bitmap;
 	
 	@Override
 	public void create () {
@@ -29,13 +33,20 @@ public class MeuJogo extends ApplicationAdapter {
 		tObstacle = new Texture("bloco-obstaculo.png");
 		obstacles = new Array<Rectangle>();
 		frequenciaObstaculo = 0;
-		temporizador = new Temporizador();
+		temp = new Temporizador();
+		generator = new FreeTypeFontGenerator(Gdx.files.internal("font.ttf"));
+		param = new FreeTypeFontGenerator.FreeTypeFontParameter();
+		param.size = 30;
+		param.borderWidth = 1;
+		param.borderColor = Color.BLACK;
+		param.color = Color.WHITE;
+		bitmap = generator.generateFont(param);
 	}
 
 	@Override
 	public void render () {
 		//chamando a função para spawnar obstáculos
-		this.moveObstacles();
+		this.moveObstacles(getTempo());
 		
 		ScreenUtils.clear(1, 0, 0, 1);
 		batch.begin();
@@ -44,6 +55,8 @@ public class MeuJogo extends ApplicationAdapter {
 		for (Rectangle obstacle : obstacles) {
 			batch.draw(tObstacle, obstacle.x, obstacle.y);
 		}
+		
+		bitmap.draw(batch, "Tempo: " + getTempo(), Gdx.graphics.getWidth() - 175, Gdx.graphics.getHeight() - 20);
 				
 		batch.end();
 	}
@@ -54,14 +67,32 @@ public class MeuJogo extends ApplicationAdapter {
 		img.dispose();
 	}
 	
+	public long getTempo() {
+		long tempoString = temp.getTempo()/1000;
+		return tempoString;
+	}
+	
 	private void spawnObstacle () {
 		Rectangle obstacle = new Rectangle(Gdx.graphics.getWidth(), MathUtils.random(0, Gdx.graphics.getHeight() - tObstacle.getHeight()), tObstacle.getWidth(), tObstacle.getHeight());
 		obstacles.add(obstacle);
 		frequenciaObstaculo = TimeUtils.nanoTime();
 	}
 	
-	private void moveObstacles() {
-		if(TimeUtils.nanoTime() - frequenciaObstaculo > 7) {
+	private int frequenciaGeracaoObstaculo (long tempo) {
+		int frequenciaAtual = 777777777;
+		int frequenciaAntiga = 777777778;
+		System.out.println(tempo);
+		if (tempo> 1) {
+			if(frequenciaAtual < frequenciaAntiga) {
+				frequenciaAntiga = frequenciaAtual;
+				frequenciaAtual -= 100;
+			}
+		}
+		return frequenciaAtual;
+	}
+	
+	private void moveObstacles(long tempo) {
+		if(TimeUtils.nanoTime() - frequenciaObstaculo > frequenciaGeracaoObstaculo(tempo)) {
 			this.spawnObstacle();
 		}
 		
@@ -75,4 +106,8 @@ public class MeuJogo extends ApplicationAdapter {
 		}
 		
 	}
+	
+//	public boolean getTempoSegundo(long tempoInicial, long tempoFinal) {
+//		if (tempoFinal - tempoInicial > )
+//	}
 }

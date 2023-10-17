@@ -4,11 +4,17 @@ import java.util.Calendar;
 
 public class Temporizador {
 	
-	private Calendar c = Calendar.getInstance();
 	private long tempoFinal;
-    private long tempoInicial = c.getTimeInMillis();
+	private long tempoInicial;
+	private Calendar c;
+	
+	public Temporizador () {
+		c = Calendar.getInstance();
+	    tempoInicial = c.getTimeInMillis();
+	}
     
-    public long tempo() {
+    public long getTempo() {
+    	c = Calendar.getInstance();
     	tempoFinal = c.getTimeInMillis();
     	return tempoFinal - tempoInicial;
     }
