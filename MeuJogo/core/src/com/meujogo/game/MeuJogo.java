@@ -25,6 +25,8 @@ public class MeuJogo extends ApplicationAdapter {
 	private FreeTypeFontGenerator generator;
 	private FreeTypeFontGenerator.FreeTypeFontParameter param;
 	private BitmapFont bitmap;
+	private int frequenciaAtual = 777777777;
+	private int frequenciaAntiga = 777777778;
 	
 	@Override
 	public void create () {
@@ -46,7 +48,7 @@ public class MeuJogo extends ApplicationAdapter {
 	@Override
 	public void render () {
 		//chamando a função para spawnar obstáculos
-		this.moveObstacles(getTempo());
+		this.moveObstacles(temp.getTempo()/1000);
 		
 		ScreenUtils.clear(1, 0, 0, 1);
 		batch.begin();
@@ -56,7 +58,7 @@ public class MeuJogo extends ApplicationAdapter {
 			batch.draw(tObstacle, obstacle.x, obstacle.y);
 		}
 		
-		bitmap.draw(batch, "Tempo: " + getTempo(), Gdx.graphics.getWidth() - 175, Gdx.graphics.getHeight() - 20);
+		bitmap.draw(batch, "Tempo: " + temp.getTempo()/1000, Gdx.graphics.getWidth() - 175, Gdx.graphics.getHeight() - 20);
 				
 		batch.end();
 	}
@@ -67,11 +69,6 @@ public class MeuJogo extends ApplicationAdapter {
 		img.dispose();
 	}
 	
-	public long getTempo() {
-		long tempoString = temp.getTempo()/1000;
-		return tempoString;
-	}
-	
 	private void spawnObstacle () {
 		Rectangle obstacle = new Rectangle(Gdx.graphics.getWidth(), MathUtils.random(0, Gdx.graphics.getHeight() - tObstacle.getHeight()), tObstacle.getWidth(), tObstacle.getHeight());
 		obstacles.add(obstacle);
@@ -79,13 +76,17 @@ public class MeuJogo extends ApplicationAdapter {
 	}
 	
 	private int frequenciaGeracaoObstaculo (long tempo) {
-		int frequenciaAtual = 777777777;
-		int frequenciaAntiga = 777777778;
-		System.out.println(tempo);
-		if (tempo> 1) {
+		if (tempo > 15 && tempo < 45) {
 			if(frequenciaAtual < frequenciaAntiga) {
 				frequenciaAntiga = frequenciaAtual;
-				frequenciaAtual -= 100;
+				frequenciaAtual -= 50000;
+				System.out.println(frequenciaAtual);
+			}
+		}else if (tempo > 45 && tempo < 90) {
+			if(frequenciaAtual < frequenciaAntiga) {
+				frequenciaAntiga = frequenciaAtual;
+				frequenciaAtual -= 75000;
+				System.out.println(frequenciaAtual);
 			}
 		}
 		return frequenciaAtual;
@@ -95,7 +96,6 @@ public class MeuJogo extends ApplicationAdapter {
 		if(TimeUtils.nanoTime() - frequenciaObstaculo > frequenciaGeracaoObstaculo(tempo)) {
 			this.spawnObstacle();
 		}
-		
 		
 		for(Iterator<Rectangle> iter = obstacles.iterator(); iter.hasNext();) {
 			Rectangle obstacle = iter.next();
