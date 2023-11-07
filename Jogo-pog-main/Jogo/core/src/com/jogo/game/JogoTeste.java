@@ -17,7 +17,7 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.Color;
 
 
-public class Jogo extends ApplicationAdapter {
+public class JogoTeste extends ApplicationAdapter {
 
 	private SpriteBatch batch;
 	private Texture img, tCharacter, tObstacle;
@@ -49,7 +49,7 @@ public class Jogo extends ApplicationAdapter {
 		obstacle.setFrequenciaObstaculo(10);
 		obstacle.setGameover(false);
 				
-		text = new Texts();
+		text = new Texts();  
 		text.setGenerator(new FreeTypeFontGenerator(Gdx.files.internal("font.ttf")));
 		text.setParam(new FreeTypeFontGenerator.FreeTypeFontParameter());
 		text.getParam().size = 30;
