@@ -163,7 +163,7 @@ public class Jogo extends ApplicationAdapter {
 		for(Iterator<Rectangle> iter = obstacles.iterator(); iter.hasNext();) {
 			Rectangle obstacle = iter.next();
 			if (Gdx.input.isKeyPressed(Input.Keys.SPACE) || tempo - tempoAuxilio >= -10 && tempo - tempoAuxilio <= 0) {
-				if (contador == 0) {
+				if (contador == 0 && tempo - tempoAuxilio >= 20) {
 					tempoAuxilio = tempo + 10;
 					contador++;
 				}
