@@ -162,24 +162,25 @@ public class Jogo extends ApplicationAdapter {
 		
 		for(Iterator<Rectangle> iter = obstacles.iterator(); iter.hasNext();) {
 			Rectangle obstacle = iter.next();
-			if (Gdx.input.isKeyPressed(Input.Keys.SPACE) || tempo - tempoAuxilio >= -10 && tempo - tempoAuxilio <= 0) {
-				if (contador == 0 && tempo - tempoAuxilio >= 20) {
-					tempoAuxilio = tempo + 10;
+			if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || tempo - tempoAuxilio >= -5 && tempo - tempoAuxilio <= 0) {
+				if (contador == 0) {
+					tempoAuxilio = tempo + 5;
 					contador++;
 				}
 				obstacle.x -= 10;
-				System.out.println("Tempo: " + tempo);
-				System.out.println("Tempo de auxilio: " + tempoAuxilio);
-				System.out.println("Passou pelo primeiro if " + (tempo-tempoAuxilio));
 			}else {
 				obstacle.x -= velocidadeGeracaoObstaculo(tempo);
-				System.out.println("Passou aq");
-				contador = 0;
+				if (tempo - tempoAuxilio >= 10) {
+					contador = 0;
+					System.out.println("Passou");
+				}
+				System.out.println("TempoAuxilio: " + tempoAuxilio);
+				System.out.println("Tempo: " + tempo);
 			}
 			
 			if (collide(obstacle.x, obstacle.y, obstacle.height, obstacle.width, posX, posY, character.getWidth(), character.getHeight() ) && !gameover ) {
 				iter.remove();
-//				power--;
+				power--;
 				if (power <= 0) {
 					gameover = true;
 				}
@@ -221,7 +222,6 @@ public class Jogo extends ApplicationAdapter {
 				System.out.println(velocidadeAtual);
 			}
 		}
-		System.out.println("Teste: " + velocidadeAtual);
 		return velocidadeAtual;
 	}
 }
